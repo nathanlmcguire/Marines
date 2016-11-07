@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="http://www.clipartkid.com/images/689/saturn-clip-art-at-clker-com-vector-clip-art-online-royalty-free-90q1EZ-clipart.png">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="marine.css">
+
+      <title>Marine: An XCOM Fan Game</title>
+  </head>
+  <body background=http://www.storywarren.com/wp-content/uploads/2016/09/space-1.jpg>
+    <h1>MARINE</h1>
+      
+      <canvas id="myCanvas" width="400" height="400" style="border: 3px solid white;"></canvas>
+      
+      <script type="text/javascript">
+            
+          
+          var map = [
+                  [-1, 0, -1, 0, 0, -1, 0, -1],
+                  [0, 0, 0, 0, 0, 0, 0, 0], 
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 1, 0, 0, 2, 0, 0], 
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 2, 0, 0, 0, 0, 2, 0]
+                ];
+          
+            var actionPoints = 3;
+            var canvas;
+            var ctx;
+            var shapeWidth = 50;
+            var shapeHeight = 50;
+            var screenWidth = map.length * 50;
+            var screenHeight = map[0].length * 50;
+          var resultR, resultC;
+          
+          
+          
+            function drawBorder()
+                {
+                ctx.rect(0, 0, screenWidth, screenHeight);
+                ctx.stroke();
+                }
+          
+            function randomColor()
+                {
+                var random = Math.floor((Math.random() * 3) + 1);
+                var color = "white";
+                
+                switch(random)
+                    {
+                    case 1:
+                        {
+                        color = "#36ad00";
+                        break;
+                        }
+                    case 2:
+                        {
+                        color = "#719604";
+                        break;
+                        }
+                    case 3:
+                        {
+                        color = "#138c3d";
+                        break;
+                        }
+                    }
+                    
+                return color;
+                }
+          
+            function square(x, y, color)
+                {
+                ctx.beginPath();
+                ctx.fillStyle=color;
+                ctx.fillRect(x, y, shapeWidth, shapeHeight);
+                }
+          
+            function clear()
+                {
+                ctx.clearRect(0, 0, screenWidth, screenHeight);
+                }
+          
+            function init()
+                {
+                canvas = document.getElementById("myCanvas");
+                ctx = canvas.getContext("2d");
+                return setTimeout(draw, 1); //setInterval to repeat
+                }
+          
+            function draw()
+                {
+                var x = 0;
+                var y = 0;
+                var entry;
+                var img;
+
+                clear();
+                drawBorder();
+
+                for(var i = 0; i < map.length; i++)
+                    {
+                    entry = map[i];
+                    for(var j = 0; j < entry.length; j++)
+                      {
+                    if(entry[j] == 1 )
+                        {
+                        img = "http://pixeljoint.com/files/icons/terran_space_marine.gif";
+                        
+                        square(x, y, "#00edff");       
+                        }
+                    else if(entry[j] == 2/* || entry[j] == 3*/)
+                        {
+                        square(x, y, "#0061ff");       
+                        }
+                    else if(entry[j] == 3)
+                        {
+                        square(x, y, "#f4d742");    
+                        }
+                    else if(entry[j] == -1)
+                        {
+                        img = "http://a.deviantart.net/avatars/q/w/qwerty1198.gif?13";
+                        square(x, y, "#e00e0b");       
+                        }
+                    else if(entry[j] == -2)
+                        {
+                        square(x, y, "#777777");     
+                        }
+                    else
+                        {
+                        img = "img_the_scream.jpg";
+                        square(x, y, randomColor());       
+                        }
+                          
+                    if(j == 7)
+                        {
+                        x = 0;  
+                        y += shapeHeight;
+                        }
+                    else
+                        {
+                        x += shapeWidth;
+                        }
+                      }
+                    }
+                }
+            init();
+      </script>
+          <input id="movementConsole" />
+          <button id="moveButton">Move</button>
+          <button id="shootButton">Shoot</button>
+          <button id="endTurnButton">End Turn</button>
+          <img src="https://thumbs.dreamstime.com/t/battery-full-icon-file-eps-format-31638783.jpg" id = "energyBar" alt="Energy" style="width:200px;height:200px;">
+      
+          <!--full = https://thumbs.dreamstime.com/t/battery-full-icon-file-eps-format-31638783.jpg
+          half full = http://us.123rf.com/450wm/thomaspajot/thomaspajot1102/thomaspajot110200028/8889246-medium-battery-icon.jpg
+          almost empty = http://winarticles.net/wp-content/uploads/2013/04/windows-8-battery-life.jpg
+          empty = http://cdn.tapscape.com/wp-content/uploads/2011/12/battery.png-->
+      
+      <h1>Console</h1>
+      
+    <script src="marine.js"></script>
+  </body>
+</html>
